@@ -46,28 +46,38 @@ class Particle:
 
     # update new particle velocity
     def update_velocity(self, pos_best_g, bounds, n, max_iter, ii):
-        w_i = 7  # constant inertia weight
+        w_i = 0.9  # constant inertia weight
         w_f = 0.01  # constant inertia weight
-        c1_i = 1  # absolute cognitive weight
-        c1_f = 0.5  # absolute cognitive weight
-        c2_i = 0  # absolute social weight
-        c2_f = 0.3  # absolute social weight
+        c1_i = 0.8  # absolute cognitive weight
+        c1_f = 0.2  # absolute cognitive weight
+        c2_i = 0.1  # absolute social weight
+        c2_f = 5  # absolute social weight
 
-        w_var = (w_f - w_i) * n / max_iter + w_i  # constant inertia weight
+        w_var = w_f + (w_f - w_i) * n / max_iter + w_i  # constant inertia weight
         c1_var = (c1_f - c1_i) * n / max_iter + c1_i  # varying cognitive constant
         c2_var = (c2_f - c2_i) * n / max_iter + c2_i  # varying social constant
-        vel_max = 0.1
+
+        vel_max = 1
 
         print((round(c1_var, 1), round(c2_var, 1)) if ii == 1 else '', end='')
 
         for i in range(0, len(bounds)):
-            r1 = random.random()  # -1 a 1 ?
-            r2 = random.random()  # -1 a 1 ?
+            r1 = random.random()*2-1  # -1 a 1 ???????????
+            r2 = random.random()*2-1  # -1 a 1 ???????????
 
             vel_cognitive = c1_var * r1 * (self.pos_best_i[i] - self.position_i[i])
             vel_social = c2_var * r2 * (pos_best_g[i] - self.position_i[i])
-            # vel
-            self.velocity_i[i] = 0.2*(w_var * self.velocity_i[i] + vel_cognitive + vel_social)
+
+            vel = 0.2 * (w_var * self.velocity_i[i] + vel_cognitive + vel_social)
+
+            self.velocity_i[i] = vel
+
+            # if -vel_max < vel < vel_max:
+            #     self.velocity_i[i] = vel
+            # elif vel > vel_max:
+            #     self.velocity_i[i] = vel_max
+            # else:
+            #     self.velocity_i[i] = -vel_max
 
     # update the particle position based off new velocity updates
     def update_position(self, bounds):
@@ -156,7 +166,7 @@ print("melhor global até então | melhor global da iteração | média do fitne
 
 def run_pso():
     domains = [(-512, 512), (-512, 512)]  # input bounds [(x1_min,x1_max),(x2_min,x2_max)...]
-    PSO(eggholder, domains, num_particles=100, max_iter=200)
+    PSO(eggholder, domains, num_particles=100, max_iter=400)
     return
 
 
