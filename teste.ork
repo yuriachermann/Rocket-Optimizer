@@ -1,0 +1,1024 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<openrocket version="1.6" creator="OpenRocket 15.03">
+  <rocket>
+    <name>Foguete</name>
+    <motorconfiguration configid="154fafaa-db20-4c77-9d34-5cb61ac9fffe" default="true"><name>Kosmos - Nébula</name></motorconfiguration>
+    <referencetype>maximum</referencetype>
+
+    <subcomponents>
+      <stage>
+        <name>Sustentador</name>
+
+        <subcomponents>
+          <nosecone>
+            <name>Ogiva</name>
+            <appearance>
+            <paint red="0" green="0" blue="0" />
+            <shine>0.8</shine>
+            </appearance>
+            <overridemass>0.0955</overridemass>
+            <overridesubcomponents>false</overridesubcomponents>
+            <finish>normal</finish>
+            <material type="bulk" density="1270.0">PETG</material>
+            <length>0.15460000000000002</length>
+            <thickness>0.003175</thickness>
+            <shape>haack</shape>
+            <shapeclipped>false</shapeclipped>
+            <shapeparameter>0.0</shapeparameter>
+            <aftradius>auto</aftradius>
+            <aftshoulderradius>0.0375</aftshoulderradius>
+            <aftshoulderlength>0.03</aftshoulderlength>
+            <aftshoulderthickness>0.001</aftshoulderthickness>
+            <aftshouldercapped>false</aftshouldercapped>
+
+            <subcomponents>
+              <bulkhead>
+                <name>Anteparo 1</name>
+                <appearance>
+                <paint red="153" green="153" blue="0" />
+                <shine>0.0</shine>
+                </appearance>
+                <color red="153" green="153" blue="0" />
+                <linestyle>solid</linestyle>
+                <position type="bottom">0.017</position>
+                <material type="bulk" density="700.0">MDF</material>
+                <length>0.003</length>
+                <radialposition>0.0</radialposition>
+                <radialdirection>0.0</radialdirection>
+                <outerradius>0.0355</outerradius>
+              </bulkhead>
+
+              <innertube>
+                <name>Tubo interno</name>
+                <position type="bottom">0.02</position>
+                <overridemass>0.015</overridemass>
+                <overridesubcomponents>false</overridesubcomponents>
+                <material type="bulk" density="7850.0">Steel</material>
+                <length>0.007</length>
+                <radialposition>0.0</radialposition>
+                <radialdirection>0.0</radialdirection>
+                <outerradius>0.016</outerradius>
+                <thickness>0.01</thickness>
+                <clusterconfiguration>single</clusterconfiguration>
+                <clusterscale>1.0</clusterscale>
+                <clusterrotation>0.0</clusterrotation>
+              </innertube>
+            </subcomponents>
+          </nosecone>
+
+          <bodytube>
+            <name>Tubo do corpo</name>
+            <appearance>
+            <paint red="255" green="255" blue="255" />
+            <shine>0.8</shine>
+            </appearance>
+            <overridemass>0.38</overridemass>
+            <overridesubcomponents>false</overridesubcomponents>
+            <finish>normal</finish>
+            <material type="bulk" density="1780.0">Fibra de carbono-Alltec</material>
+            <length>1.05</length>
+            <thickness>0.0015000000000000013</thickness>
+            <radius>0.039</radius>
+            <motormount>
+              <ignitionevent>automatic</ignitionevent>
+              <ignitiondelay>0.0</ignitiondelay>
+              <overhang>0.0</overhang>
+              <motor configid="154fafaa-db20-4c77-9d34-5cb61ac9fffe">
+                <manufacturer>Kosmos-Nebula1k</manufacturer>
+                <digest>bd9d163f3e476fe2c1e42e4b72ee32eb</digest>
+                <designation>J650</designation>
+                <diameter>0.0506</diameter>
+                <length>0.36269999999999997</length>
+                <delay>0.0</delay>
+              </motor>
+            </motormount>
+
+            <subcomponents>
+              <bulkhead>
+                <name>Anteparo 2</name>
+                <color red="0" green="255" blue="0" />
+                <linestyle>solid</linestyle>
+                <position type="bottom">-0.7460000000000002</position>
+                <overridemass>0.015</overridemass>
+                <overridesubcomponents>false</overridesubcomponents>
+                <material type="bulk" density="480.0">Madeira Pinus 1.0</material>
+                <length>0.01</length>
+                <radialposition>0.0</radialposition>
+                <radialdirection>0.0</radialdirection>
+                <outerradius>0.0375</outerradius>
+              </bulkhead>
+
+              <parachute>
+                <name>Pára-quedas 1º  Estagio</name>
+                <position type="top">0.04000000000000001</position>
+                <overridemass>0.161</overridemass>
+                <overridesubcomponents>false</overridesubcomponents>
+                <packedlength>0.21</packedlength>
+                <packedradius>0.0325</packedradius>
+                <radialposition>0.0</radialposition>
+                <radialdirection>0.0</radialdirection>
+                <cd>1.5</cd>
+                <material type="surface" density="0.067">Ripstop nylon</material>
+                <deployevent>apogee</deployevent>
+                <deployaltitude>200.0</deployaltitude>
+                <deploydelay>3.0</deploydelay>
+                <diameter>0.84</diameter>
+                <linecount>12</linecount>
+                <linelength>1.008</linelength>
+                <linematerial type="line" density="0.004">Cordelete (2 mm)</linematerial>
+              </parachute>
+
+              <masscomponent>
+                <name>Aviônica</name>
+                <appearance>
+                <paint red="1" green="1" blue="1" />
+                <shine>0.0</shine>
+                <decal name="/datafiles/textures/wadding.png" rotation="0.0" edgemode="REPEAT">
+                <center x="0.0" y="0.0" />
+                <offset x="0.0" y="0.0" />
+                <scale x="1.0" y="1.0" />
+                </decal>
+                </appearance>
+                <position type="top">0.305</position>
+                <packedlength>0.17500000000000002</packedlength>
+                <packedradius>0.0325</packedradius>
+                <radialposition>0.0</radialposition>
+                <radialdirection>0.0</radialdirection>
+                <mass>0.2897</mass>
+                <masscomponenttype>flightcomputer</masscomponenttype>
+              </masscomponent>
+
+              <bulkhead>
+                <name>Anteparo 3</name>
+                <color red="255" green="255" blue="0" />
+                <linestyle>solid</linestyle>
+                <position type="bottom">-0.555</position>
+                <overridemass>0.015</overridemass>
+                <overridesubcomponents>false</overridesubcomponents>
+                <material type="bulk" density="480.0">Madeira Pinus 1.0</material>
+                <length>0.01</length>
+                <radialposition>0.0</radialposition>
+                <radialdirection>0.0</radialdirection>
+                <outerradius>0.0375</outerradius>
+              </bulkhead>
+
+              <masscomponent>
+                <name>Payload</name>
+                <position type="top">0.5</position>
+                <packedlength>0.105</packedlength>
+                <packedradius>0.0325</packedradius>
+                <radialposition>0.0</radialposition>
+                <radialdirection>0.0</radialdirection>
+                <mass>0.2</mass>
+                <masscomponenttype>payload</masscomponenttype>
+              </masscomponent>
+
+              <bulkhead>
+                <name>Anteparo 4</name>
+                <color red="102" green="255" blue="0" />
+                <linestyle>solid</linestyle>
+                <position type="bottom">-0.42</position>
+                <overridemass>0.015</overridemass>
+                <overridesubcomponents>false</overridesubcomponents>
+                <material type="bulk" density="630.0">Plywood (birch)</material>
+                <length>0.01</length>
+                <radialposition>0.0</radialposition>
+                <radialdirection>0.0</radialdirection>
+                <outerradius>0.0375</outerradius>
+              </bulkhead>
+
+              <freeformfinset>
+                <name>Conjunto de aletas de formato livre</name>
+                <position type="bottom">-0.03</position>
+                <finish>normal</finish>
+                <material type="bulk" density="700.0">MDF</material>
+                <fincount>4</fincount>
+                <rotation>0.0</rotation>
+                <thickness>0.002</thickness>
+                <crosssection>airfoil</crosssection>
+                <cant>0.0</cant>
+                <filletradius>0.0</filletradius>
+                <filletmaterial type="bulk" density="680.0">Cardboard</filletmaterial>
+                <finpoints>
+                  <point x="0" y="0.0" />
+                  <point x="0.057243797266088005" y="0.016611864035230805" />
+                  <point x="0.09639206070731775" y="0.05190227080457781" />
+                  <point x="0.12" y="0.0" />
+                </finpoints>
+              </freeformfinset>
+
+              <centeringring>
+                <name>Anel centralizador</name>
+                <position type="bottom">0.0</position>
+                <overridemass>0.034</overridemass>
+                <overridesubcomponents>false</overridesubcomponents>
+                <material type="bulk" density="480.0">Madeira Pinus 1.0</material>
+                <length>0.02</length>
+                <radialposition>0.0</radialposition>
+                <radialdirection>0.0</radialdirection>
+                <outerradius>auto</outerradius>
+                <innerradius>auto</innerradius>
+              </centeringring>
+
+              <centeringring>
+                <name>Anel centralizador</name>
+                <position type="bottom">-0.34500000000000003</position>
+                <material type="bulk" density="480.0">Madeira Pinus 1.0</material>
+                <length>0.025</length>
+                <radialposition>0.0</radialposition>
+                <radialdirection>0.0</radialdirection>
+                <outerradius>auto</outerradius>
+                <innerradius>auto</innerradius>
+              </centeringring>
+
+              <innertube>
+                <name>Tubo interno</name>
+                <position type="bottom">-0.76</position>
+                <material type="bulk" density="8960.0">Cobre</material>
+                <length>0.035</length>
+                <radialposition>0.0</radialposition>
+                <radialdirection>0.0</radialdirection>
+                <outerradius>0.015</outerradius>
+                <thickness>0.0010000000000000009</thickness>
+                <clusterconfiguration>single</clusterconfiguration>
+                <clusterscale>1.0</clusterscale>
+                <clusterrotation>0.0</clusterrotation>
+              </innertube>
+
+              <masscomponent>
+                <name>Componente de massa</name>
+                <position type="top">0.865</position>
+                <packedlength>0.165</packedlength>
+                <packedradius>0.035</packedradius>
+                <radialposition>0.0</radialposition>
+                <radialdirection>0.0</radialdirection>
+                <mass>0.15289</mass>
+                <masscomponenttype>masscomponent</masscomponenttype>
+              </masscomponent>
+            </subcomponents>
+          </bodytube>
+        </subcomponents>
+      </stage>
+    </subcomponents>
+  </rocket>
+
+  <simulations>
+    <simulation status="cantrun">
+      <name>Simulation 1</name>
+      <simulator>RK4Simulator</simulator>
+      <calculator>BarrowmanCalculator</calculator>
+      <conditions>
+        <configid>154fafaa-db20-4c77-9d34-5cb61ac9fffe</configid>
+        <launchrodlength>6.0</launchrodlength>
+        <launchrodangle>0.0</launchrodangle>
+        <launchroddirection>90.0</launchroddirection>
+        <windaverage>2.0</windaverage>
+        <windturbulence>0.1</windturbulence>
+        <launchaltitude>0.0</launchaltitude>
+        <launchlatitude>28.61</launchlatitude>
+        <launchlongitude>-80.6</launchlongitude>
+        <geodeticmethod>spherical</geodeticmethod>
+        <atmosphere model="isa" />
+        <timestep>0.05</timestep>
+      </conditions>
+      <flightdata maxaltitude="1068.5">
+      </flightdata>
+    </simulation>
+
+    <simulation status="cantrun">
+      <name>Simulation 2</name>
+      <simulator>RK4Simulator</simulator>
+      <calculator>BarrowmanCalculator</calculator>
+      <conditions>
+        <configid>154fafaa-db20-4c77-9d34-5cb61ac9fffe</configid>
+        <launchrodlength>6.0</launchrodlength>
+        <launchrodangle>0.0</launchrodangle>
+        <launchroddirection>90.0</launchroddirection>
+        <windaverage>2.0</windaverage>
+        <windturbulence>0.1</windturbulence>
+        <launchaltitude>0.0</launchaltitude>
+        <launchlatitude>28.61</launchlatitude>
+        <launchlongitude>-80.6</launchlongitude>
+        <geodeticmethod>spherical</geodeticmethod>
+        <atmosphere model="isa" />
+        <timestep>0.05</timestep>
+      </conditions>
+      <flightdata maxaltitude="1068.9">
+      </flightdata>
+    </simulation>
+
+    <simulation status="cantrun">
+      <name>Simulation 3</name>
+      <simulator>RK4Simulator</simulator>
+      <calculator>BarrowmanCalculator</calculator>
+      <conditions>
+        <configid>154fafaa-db20-4c77-9d34-5cb61ac9fffe</configid>
+        <launchrodlength>6.0</launchrodlength>
+        <launchrodangle>0.0</launchrodangle>
+        <launchroddirection>90.0</launchroddirection>
+        <windaverage>2.0</windaverage>
+        <windturbulence>0.1</windturbulence>
+        <launchaltitude>0.0</launchaltitude>
+        <launchlatitude>28.61</launchlatitude>
+        <launchlongitude>-80.6</launchlongitude>
+        <geodeticmethod>spherical</geodeticmethod>
+        <atmosphere model="isa" />
+        <timestep>0.05</timestep>
+      </conditions>
+      <flightdata maxaltitude="1056.6">
+      </flightdata>
+    </simulation>
+
+    <simulation status="cantrun">
+      <name>Simulation 4</name>
+      <simulator>RK4Simulator</simulator>
+      <calculator>BarrowmanCalculator</calculator>
+      <conditions>
+        <configid>154fafaa-db20-4c77-9d34-5cb61ac9fffe</configid>
+        <launchrodlength>60.0</launchrodlength>
+        <launchrodangle>10.0</launchrodangle>
+        <launchroddirection>90.0</launchroddirection>
+        <windaverage>10.0</windaverage>
+        <windturbulence>0.1</windturbulence>
+        <launchaltitude>0.0</launchaltitude>
+        <launchlatitude>28.61</launchlatitude>
+        <launchlongitude>-80.6</launchlongitude>
+        <geodeticmethod>spherical</geodeticmethod>
+        <atmosphere model="isa" />
+        <timestep>0.05</timestep>
+      </conditions>
+      <flightdata maxaltitude="1119.2">
+      </flightdata>
+    </simulation>
+
+    <simulation status="cantrun">
+      <name>Simulation 5</name>
+      <simulator>RK4Simulator</simulator>
+      <calculator>BarrowmanCalculator</calculator>
+      <conditions>
+        <configid>154fafaa-db20-4c77-9d34-5cb61ac9fffe</configid>
+        <launchrodlength>6.0</launchrodlength>
+        <launchrodangle>5.0</launchrodangle>
+        <launchroddirection>90.0</launchroddirection>
+        <windaverage>10.0</windaverage>
+        <windturbulence>0.1</windturbulence>
+        <launchaltitude>0.0</launchaltitude>
+        <launchlatitude>28.61</launchlatitude>
+        <launchlongitude>-80.6</launchlongitude>
+        <geodeticmethod>spherical</geodeticmethod>
+        <atmosphere model="isa" />
+        <timestep>0.05</timestep>
+      </conditions>
+      <flightdata maxaltitude="1150.6">
+      </flightdata>
+    </simulation>
+
+    <simulation status="cantrun">
+      <name>Simulation 6</name>
+      <simulator>RK4Simulator</simulator>
+      <calculator>BarrowmanCalculator</calculator>
+      <conditions>
+        <configid>154fafaa-db20-4c77-9d34-5cb61ac9fffe</configid>
+        <launchrodlength>6.0</launchrodlength>
+        <launchrodangle>5.0</launchrodangle>
+        <launchroddirection>90.0</launchroddirection>
+        <windaverage>10.0</windaverage>
+        <windturbulence>0.1</windturbulence>
+        <launchaltitude>0.0</launchaltitude>
+        <launchlatitude>28.61</launchlatitude>
+        <launchlongitude>-80.6</launchlongitude>
+        <geodeticmethod>spherical</geodeticmethod>
+        <atmosphere model="isa" />
+        <timestep>0.05</timestep>
+      </conditions>
+      <flightdata maxaltitude="1268.7">
+      </flightdata>
+    </simulation>
+
+    <simulation status="cantrun">
+      <name>Simulation 7</name>
+      <simulator>RK4Simulator</simulator>
+      <calculator>BarrowmanCalculator</calculator>
+      <conditions>
+        <configid>154fafaa-db20-4c77-9d34-5cb61ac9fffe</configid>
+        <launchrodlength>6.0</launchrodlength>
+        <launchrodangle>5.0</launchrodangle>
+        <launchroddirection>90.0</launchroddirection>
+        <windaverage>8.0</windaverage>
+        <windturbulence>0.1</windturbulence>
+        <launchaltitude>0.0</launchaltitude>
+        <launchlatitude>28.61</launchlatitude>
+        <launchlongitude>-80.6</launchlongitude>
+        <geodeticmethod>spherical</geodeticmethod>
+        <atmosphere model="isa" />
+        <timestep>0.05</timestep>
+      </conditions>
+      <flightdata maxaltitude="1261.3">
+      </flightdata>
+    </simulation>
+
+    <simulation status="cantrun">
+      <name>Simulation 8</name>
+      <simulator>RK4Simulator</simulator>
+      <calculator>BarrowmanCalculator</calculator>
+      <conditions>
+        <configid>154fafaa-db20-4c77-9d34-5cb61ac9fffe</configid>
+        <launchrodlength>6.0</launchrodlength>
+        <launchrodangle>5.0</launchrodangle>
+        <launchroddirection>90.0</launchroddirection>
+        <windaverage>8.0</windaverage>
+        <windturbulence>0.1</windturbulence>
+        <launchaltitude>0.0</launchaltitude>
+        <launchlatitude>28.61</launchlatitude>
+        <launchlongitude>-80.6</launchlongitude>
+        <geodeticmethod>spherical</geodeticmethod>
+        <atmosphere model="isa" />
+        <timestep>0.05</timestep>
+      </conditions>
+      <flightdata maxaltitude="1265.5">
+      </flightdata>
+    </simulation>
+
+    <simulation status="cantrun">
+      <name>Simulation 9</name>
+      <simulator>RK4Simulator</simulator>
+      <calculator>BarrowmanCalculator</calculator>
+      <conditions>
+        <configid>154fafaa-db20-4c77-9d34-5cb61ac9fffe</configid>
+        <launchrodlength>6.0</launchrodlength>
+        <launchrodangle>5.0</launchrodangle>
+        <launchroddirection>90.0</launchroddirection>
+        <windaverage>8.0</windaverage>
+        <windturbulence>0.1</windturbulence>
+        <launchaltitude>0.0</launchaltitude>
+        <launchlatitude>28.61</launchlatitude>
+        <launchlongitude>-80.6</launchlongitude>
+        <geodeticmethod>spherical</geodeticmethod>
+        <atmosphere model="isa" />
+        <timestep>0.05</timestep>
+      </conditions>
+      <flightdata maxaltitude="1262.3">
+      </flightdata>
+    </simulation>
+
+    <simulation status="cantrun">
+      <name>Simulation 10</name>
+      <simulator>RK4Simulator</simulator>
+      <calculator>BarrowmanCalculator</calculator>
+      <conditions>
+        <configid>154fafaa-db20-4c77-9d34-5cb61ac9fffe</configid>
+        <launchrodlength>1.0</launchrodlength>
+        <launchrodangle>0.0</launchrodangle>
+        <launchroddirection>90.0</launchroddirection>
+        <windaverage>2.0</windaverage>
+        <windturbulence>0.1</windturbulence>
+        <launchaltitude>0.0</launchaltitude>
+        <launchlatitude>28.61</launchlatitude>
+        <launchlongitude>-80.6</launchlongitude>
+        <geodeticmethod>spherical</geodeticmethod>
+        <atmosphere model="isa" />
+        <timestep>0.05</timestep>
+      </conditions>
+      <flightdata maxaltitude="1299.8">
+      </flightdata>
+    </simulation>
+
+    <simulation status="cantrun">
+      <name>Simulation 11</name>
+      <simulator>RK4Simulator</simulator>
+      <calculator>BarrowmanCalculator</calculator>
+      <conditions>
+        <configid>154fafaa-db20-4c77-9d34-5cb61ac9fffe</configid>
+        <launchrodlength>1.0</launchrodlength>
+        <launchrodangle>0.0</launchrodangle>
+        <launchroddirection>90.0</launchroddirection>
+        <windaverage>2.0</windaverage>
+        <windturbulence>0.1</windturbulence>
+        <launchaltitude>0.0</launchaltitude>
+        <launchlatitude>28.61</launchlatitude>
+        <launchlongitude>-80.6</launchlongitude>
+        <geodeticmethod>spherical</geodeticmethod>
+        <atmosphere model="isa" />
+        <timestep>0.05</timestep>
+      </conditions>
+      <flightdata maxaltitude="1302.1">
+      </flightdata>
+    </simulation>
+
+    <simulation status="cantrun">
+      <name>Simulation 12</name>
+      <simulator>RK4Simulator</simulator>
+      <calculator>BarrowmanCalculator</calculator>
+      <conditions>
+        <configid>154fafaa-db20-4c77-9d34-5cb61ac9fffe</configid>
+        <launchrodlength>1.0</launchrodlength>
+        <launchrodangle>0.0</launchrodangle>
+        <launchroddirection>90.0</launchroddirection>
+        <windaverage>2.0</windaverage>
+        <windturbulence>0.1</windturbulence>
+        <launchaltitude>0.0</launchaltitude>
+        <launchlatitude>28.61</launchlatitude>
+        <launchlongitude>-80.6</launchlongitude>
+        <geodeticmethod>spherical</geodeticmethod>
+        <atmosphere model="isa" />
+        <timestep>0.05</timestep>
+      </conditions>
+      <flightdata maxaltitude="1271.8">
+      </flightdata>
+    </simulation>
+
+    <simulation status="cantrun">
+      <name>Simulation 13</name>
+      <simulator>RK4Simulator</simulator>
+      <calculator>BarrowmanCalculator</calculator>
+      <conditions>
+        <configid>154fafaa-db20-4c77-9d34-5cb61ac9fffe</configid>
+        <launchrodlength>1.0</launchrodlength>
+        <launchrodangle>0.0</launchrodangle>
+        <launchroddirection>90.0</launchroddirection>
+        <windaverage>2.0</windaverage>
+        <windturbulence>0.1</windturbulence>
+        <launchaltitude>0.0</launchaltitude>
+        <launchlatitude>28.61</launchlatitude>
+        <launchlongitude>-80.6</launchlongitude>
+        <geodeticmethod>spherical</geodeticmethod>
+        <atmosphere model="isa" />
+        <timestep>0.05</timestep>
+      </conditions>
+      <flightdata maxaltitude="1271.5">
+      </flightdata>
+    </simulation>
+
+    <simulation status="cantrun">
+      <name>Simulation 14</name>
+      <simulator>RK4Simulator</simulator>
+      <calculator>BarrowmanCalculator</calculator>
+      <conditions>
+        <configid>154fafaa-db20-4c77-9d34-5cb61ac9fffe</configid>
+        <launchrodlength>6.0</launchrodlength>
+        <launchrodangle>5.0</launchrodangle>
+        <launchroddirection>90.0</launchroddirection>
+        <windaverage>8.0</windaverage>
+        <windturbulence>0.1</windturbulence>
+        <launchaltitude>0.0</launchaltitude>
+        <launchlatitude>28.61</launchlatitude>
+        <launchlongitude>-80.6</launchlongitude>
+        <geodeticmethod>spherical</geodeticmethod>
+        <atmosphere model="isa" />
+        <timestep>0.05</timestep>
+      </conditions>
+      <flightdata maxaltitude="1232.5">
+      </flightdata>
+    </simulation>
+
+    <simulation status="cantrun">
+      <name>Simulation 15</name>
+      <simulator>RK4Simulator</simulator>
+      <calculator>BarrowmanCalculator</calculator>
+      <conditions>
+        <configid>154fafaa-db20-4c77-9d34-5cb61ac9fffe</configid>
+        <launchrodlength>6.0</launchrodlength>
+        <launchrodangle>5.0</launchrodangle>
+        <launchroddirection>90.0</launchroddirection>
+        <windaverage>10.0</windaverage>
+        <windturbulence>0.1</windturbulence>
+        <launchaltitude>0.0</launchaltitude>
+        <launchlatitude>28.61</launchlatitude>
+        <launchlongitude>-80.6</launchlongitude>
+        <geodeticmethod>spherical</geodeticmethod>
+        <atmosphere model="isa" />
+        <timestep>0.05</timestep>
+      </conditions>
+      <flightdata maxaltitude="1133.8">
+      </flightdata>
+    </simulation>
+
+    <simulation status="cantrun">
+      <name>Simulation 16</name>
+      <simulator>RK4Simulator</simulator>
+      <calculator>BarrowmanCalculator</calculator>
+      <conditions>
+        <configid>154fafaa-db20-4c77-9d34-5cb61ac9fffe</configid>
+        <launchrodlength>6.0</launchrodlength>
+        <launchrodangle>5.0</launchrodangle>
+        <launchroddirection>90.0</launchroddirection>
+        <windaverage>10.0</windaverage>
+        <windturbulence>0.1</windturbulence>
+        <launchaltitude>0.0</launchaltitude>
+        <launchlatitude>28.61</launchlatitude>
+        <launchlongitude>-80.6</launchlongitude>
+        <geodeticmethod>spherical</geodeticmethod>
+        <atmosphere model="isa" />
+        <timestep>0.05</timestep>
+      </conditions>
+      <flightdata maxaltitude="1143.1">
+      </flightdata>
+    </simulation>
+
+    <simulation status="cantrun">
+      <name>Simulation 17</name>
+      <simulator>RK4Simulator</simulator>
+      <calculator>BarrowmanCalculator</calculator>
+      <conditions>
+        <configid>154fafaa-db20-4c77-9d34-5cb61ac9fffe</configid>
+        <launchrodlength>6.0</launchrodlength>
+        <launchrodangle>5.0</launchrodangle>
+        <launchroddirection>90.0</launchroddirection>
+        <windaverage>10.0</windaverage>
+        <windturbulence>0.1</windturbulence>
+        <launchaltitude>0.0</launchaltitude>
+        <launchlatitude>28.61</launchlatitude>
+        <launchlongitude>-80.6</launchlongitude>
+        <geodeticmethod>spherical</geodeticmethod>
+        <atmosphere model="isa" />
+        <timestep>0.05</timestep>
+      </conditions>
+      <flightdata maxaltitude="1130.7">
+      </flightdata>
+    </simulation>
+
+    <simulation status="cantrun">
+      <name>Simulation 18</name>
+      <simulator>RK4Simulator</simulator>
+      <calculator>BarrowmanCalculator</calculator>
+      <conditions>
+        <configid>154fafaa-db20-4c77-9d34-5cb61ac9fffe</configid>
+        <launchrodlength>6.0</launchrodlength>
+        <launchrodangle>5.0</launchrodangle>
+        <launchroddirection>90.0</launchroddirection>
+        <windaverage>10.0</windaverage>
+        <windturbulence>0.1</windturbulence>
+        <launchaltitude>0.0</launchaltitude>
+        <launchlatitude>28.61</launchlatitude>
+        <launchlongitude>-80.6</launchlongitude>
+        <geodeticmethod>spherical</geodeticmethod>
+        <atmosphere model="isa" />
+        <timestep>0.05</timestep>
+      </conditions>
+      <flightdata maxaltitude="1156.3">
+      </flightdata>
+    </simulation>
+
+    <simulation status="cantrun">
+      <name>Simulation 19</name>
+      <simulator>RK4Simulator</simulator>
+      <calculator>BarrowmanCalculator</calculator>
+      <conditions>
+        <configid>154fafaa-db20-4c77-9d34-5cb61ac9fffe</configid>
+        <launchrodlength>6.0</launchrodlength>
+        <launchrodangle>5.0</launchrodangle>
+        <launchroddirection>90.0</launchroddirection>
+        <windaverage>10.0</windaverage>
+        <windturbulence>0.1</windturbulence>
+        <launchaltitude>0.0</launchaltitude>
+        <launchlatitude>28.61</launchlatitude>
+        <launchlongitude>-80.6</launchlongitude>
+        <geodeticmethod>spherical</geodeticmethod>
+        <atmosphere model="isa" />
+        <timestep>0.05</timestep>
+      </conditions>
+      <flightdata maxaltitude="1158.9">
+      </flightdata>
+    </simulation>
+
+    <simulation status="cantrun">
+      <name>Simulation 20</name>
+      <simulator>RK4Simulator</simulator>
+      <calculator>BarrowmanCalculator</calculator>
+      <conditions>
+        <configid>154fafaa-db20-4c77-9d34-5cb61ac9fffe</configid>
+        <launchrodlength>6.0</launchrodlength>
+        <launchrodangle>5.0</launchrodangle>
+        <launchroddirection>90.0</launchroddirection>
+        <windaverage>10.0</windaverage>
+        <windturbulence>0.1</windturbulence>
+        <launchaltitude>0.0</launchaltitude>
+        <launchlatitude>28.61</launchlatitude>
+        <launchlongitude>-80.6</launchlongitude>
+        <geodeticmethod>spherical</geodeticmethod>
+        <atmosphere model="isa" />
+        <timestep>0.05</timestep>
+      </conditions>
+      <flightdata maxaltitude="1132.1">
+      </flightdata>
+    </simulation>
+
+    <simulation status="cantrun">
+      <name>Simulation 21</name>
+      <simulator>RK4Simulator</simulator>
+      <calculator>BarrowmanCalculator</calculator>
+      <conditions>
+        <configid>154fafaa-db20-4c77-9d34-5cb61ac9fffe</configid>
+        <launchrodlength>6.0</launchrodlength>
+        <launchrodangle>5.0</launchrodangle>
+        <launchroddirection>90.0</launchroddirection>
+        <windaverage>10.0</windaverage>
+        <windturbulence>0.1</windturbulence>
+        <launchaltitude>0.0</launchaltitude>
+        <launchlatitude>28.61</launchlatitude>
+        <launchlongitude>-80.6</launchlongitude>
+        <geodeticmethod>spherical</geodeticmethod>
+        <atmosphere model="isa" />
+        <timestep>0.05</timestep>
+      </conditions>
+      <flightdata maxaltitude="1219.2">
+      </flightdata>
+    </simulation>
+
+    <simulation status="cantrun">
+      <name>Simulation 22</name>
+      <simulator>RK4Simulator</simulator>
+      <calculator>BarrowmanCalculator</calculator>
+      <conditions>
+        <configid>154fafaa-db20-4c77-9d34-5cb61ac9fffe</configid>
+        <launchrodlength>6.0</launchrodlength>
+        <launchrodangle>5.0</launchrodangle>
+        <launchroddirection>90.0</launchroddirection>
+        <windaverage>10.0</windaverage>
+        <windturbulence>0.1</windturbulence>
+        <launchaltitude>0.0</launchaltitude>
+        <launchlatitude>28.61</launchlatitude>
+        <launchlongitude>-80.6</launchlongitude>
+        <geodeticmethod>spherical</geodeticmethod>
+        <atmosphere model="isa" />
+        <timestep>0.05</timestep>
+      </conditions>
+      <flightdata maxaltitude="1213.1">
+      </flightdata>
+    </simulation>
+
+    <simulation status="cantrun">
+      <name>Simulation 23</name>
+      <simulator>RK4Simulator</simulator>
+      <calculator>BarrowmanCalculator</calculator>
+      <conditions>
+        <configid>154fafaa-db20-4c77-9d34-5cb61ac9fffe</configid>
+        <launchrodlength>6.0</launchrodlength>
+        <launchrodangle>5.0</launchrodangle>
+        <launchroddirection>90.0</launchroddirection>
+        <windaverage>10.0</windaverage>
+        <windturbulence>0.1</windturbulence>
+        <launchaltitude>0.0</launchaltitude>
+        <launchlatitude>28.61</launchlatitude>
+        <launchlongitude>-80.6</launchlongitude>
+        <geodeticmethod>spherical</geodeticmethod>
+        <atmosphere model="isa" />
+        <timestep>0.05</timestep>
+      </conditions>
+      <flightdata maxaltitude="1179.4">
+      </flightdata>
+    </simulation>
+
+    <simulation status="cantrun">
+      <name>Simulation 24</name>
+      <simulator>RK4Simulator</simulator>
+      <calculator>BarrowmanCalculator</calculator>
+      <conditions>
+        <configid>154fafaa-db20-4c77-9d34-5cb61ac9fffe</configid>
+        <launchrodlength>6.0</launchrodlength>
+        <launchrodangle>5.0</launchrodangle>
+        <launchroddirection>90.0</launchroddirection>
+        <windaverage>10.0</windaverage>
+        <windturbulence>0.1</windturbulence>
+        <launchaltitude>0.0</launchaltitude>
+        <launchlatitude>28.61</launchlatitude>
+        <launchlongitude>-80.6</launchlongitude>
+        <geodeticmethod>spherical</geodeticmethod>
+        <atmosphere model="isa" />
+        <timestep>0.05</timestep>
+      </conditions>
+      <flightdata maxaltitude="1214.2">
+      </flightdata>
+    </simulation>
+
+    <simulation status="cantrun">
+      <name>Simulation 25</name>
+      <simulator>RK4Simulator</simulator>
+      <calculator>BarrowmanCalculator</calculator>
+      <conditions>
+        <configid>154fafaa-db20-4c77-9d34-5cb61ac9fffe</configid>
+        <launchrodlength>6.0</launchrodlength>
+        <launchrodangle>5.0</launchrodangle>
+        <launchroddirection>90.0</launchroddirection>
+        <windaverage>10.0</windaverage>
+        <windturbulence>0.1</windturbulence>
+        <launchaltitude>0.0</launchaltitude>
+        <launchlatitude>28.61</launchlatitude>
+        <launchlongitude>-80.6</launchlongitude>
+        <geodeticmethod>spherical</geodeticmethod>
+        <atmosphere model="isa" />
+        <timestep>0.05</timestep>
+      </conditions>
+      <flightdata maxaltitude="736.03">
+        <warning>Implantação recuperação do dispositivo a alta velocidade (20.5 m/s)</warning>
+      </flightdata>
+    </simulation>
+
+    <simulation status="cantrun">
+      <name>Simulation 26</name>
+      <simulator>RK4Simulator</simulator>
+      <calculator>BarrowmanCalculator</calculator>
+      <conditions>
+        <configid>154fafaa-db20-4c77-9d34-5cb61ac9fffe</configid>
+        <launchrodlength>6.0</launchrodlength>
+        <launchrodangle>5.0</launchrodangle>
+        <launchroddirection>90.0</launchroddirection>
+        <windaverage>10.0</windaverage>
+        <windturbulence>0.1</windturbulence>
+        <launchaltitude>0.0</launchaltitude>
+        <launchlatitude>28.61</launchlatitude>
+        <launchlongitude>-80.6</launchlongitude>
+        <geodeticmethod>spherical</geodeticmethod>
+        <atmosphere model="isa" />
+        <timestep>0.05</timestep>
+      </conditions>
+      <flightdata maxaltitude="927.94">
+        <warning>Implantação recuperação do dispositivo a alta velocidade (21.4 m/s)</warning>
+      </flightdata>
+    </simulation>
+
+    <simulation status="cantrun">
+      <name>Simulation 27</name>
+      <simulator>RK4Simulator</simulator>
+      <calculator>BarrowmanCalculator</calculator>
+      <conditions>
+        <configid>154fafaa-db20-4c77-9d34-5cb61ac9fffe</configid>
+        <launchrodlength>6.0</launchrodlength>
+        <launchrodangle>5.0</launchrodangle>
+        <launchroddirection>90.0</launchroddirection>
+        <windaverage>10.0</windaverage>
+        <windturbulence>0.1</windturbulence>
+        <launchaltitude>0.0</launchaltitude>
+        <launchlatitude>28.61</launchlatitude>
+        <launchlongitude>-80.6</launchlongitude>
+        <geodeticmethod>spherical</geodeticmethod>
+        <atmosphere model="isa" />
+        <timestep>0.05</timestep>
+      </conditions>
+      <flightdata maxaltitude="960.4">
+        <warning>Implantação recuperação do dispositivo a alta velocidade (20.8 m/s)</warning>
+      </flightdata>
+    </simulation>
+
+    <simulation status="cantrun">
+      <name>Simulation 28</name>
+      <simulator>RK4Simulator</simulator>
+      <calculator>BarrowmanCalculator</calculator>
+      <conditions>
+        <configid>154fafaa-db20-4c77-9d34-5cb61ac9fffe</configid>
+        <launchrodlength>4.5</launchrodlength>
+        <launchrodangle>5.0</launchrodangle>
+        <launchroddirection>90.0</launchroddirection>
+        <windaverage>10.0</windaverage>
+        <windturbulence>0.1</windturbulence>
+        <launchaltitude>0.0</launchaltitude>
+        <launchlatitude>28.61</launchlatitude>
+        <launchlongitude>-80.6</launchlongitude>
+        <geodeticmethod>spherical</geodeticmethod>
+        <atmosphere model="isa" />
+        <timestep>0.05</timestep>
+      </conditions>
+      <flightdata maxaltitude="933.11">
+        <warning>Implantação recuperação do dispositivo a alta velocidade (21.2 m/s)</warning>
+      </flightdata>
+    </simulation>
+
+    <simulation status="cantrun">
+      <name>Simulation 29</name>
+      <simulator>RK4Simulator</simulator>
+      <calculator>BarrowmanCalculator</calculator>
+      <conditions>
+        <configid>154fafaa-db20-4c77-9d34-5cb61ac9fffe</configid>
+        <launchrodlength>4.5</launchrodlength>
+        <launchrodangle>5.0</launchrodangle>
+        <launchroddirection>90.0</launchroddirection>
+        <windaverage>10.0</windaverage>
+        <windturbulence>0.1</windturbulence>
+        <launchaltitude>0.0</launchaltitude>
+        <launchlatitude>28.61</launchlatitude>
+        <launchlongitude>-80.6</launchlongitude>
+        <geodeticmethod>spherical</geodeticmethod>
+        <atmosphere model="isa" />
+        <timestep>0.05</timestep>
+      </conditions>
+      <flightdata maxaltitude="924.86">
+        <warning>Implantação recuperação do dispositivo a alta velocidade (35.4 m/s)</warning>
+      </flightdata>
+    </simulation>
+
+    <simulation status="cantrun">
+      <name>Simulation 30</name>
+      <simulator>RK4Simulator</simulator>
+      <calculator>BarrowmanCalculator</calculator>
+      <conditions>
+        <configid>154fafaa-db20-4c77-9d34-5cb61ac9fffe</configid>
+        <launchrodlength>4.5</launchrodlength>
+        <launchrodangle>5.0</launchrodangle>
+        <launchroddirection>90.0</launchroddirection>
+        <windaverage>10.0</windaverage>
+        <windturbulence>0.1</windturbulence>
+        <launchaltitude>0.0</launchaltitude>
+        <launchlatitude>28.61</launchlatitude>
+        <launchlongitude>-80.6</launchlongitude>
+        <geodeticmethod>spherical</geodeticmethod>
+        <atmosphere model="isa" />
+        <timestep>0.05</timestep>
+      </conditions>
+      <flightdata maxaltitude="935.78">
+        <warning>Implantação recuperação do dispositivo a alta velocidade (34.8 m/s)</warning>
+      </flightdata>
+    </simulation>
+
+    <simulation status="cantrun">
+      <name>Simulation 31</name>
+      <simulator>RK4Simulator</simulator>
+      <calculator>BarrowmanCalculator</calculator>
+      <conditions>
+        <configid>154fafaa-db20-4c77-9d34-5cb61ac9fffe</configid>
+        <launchrodlength>4.5</launchrodlength>
+        <launchrodangle>5.0</launchrodangle>
+        <launchroddirection>90.0</launchroddirection>
+        <windaverage>10.0</windaverage>
+        <windturbulence>0.1</windturbulence>
+        <launchaltitude>0.0</launchaltitude>
+        <launchlatitude>28.61</launchlatitude>
+        <launchlongitude>-80.6</launchlongitude>
+        <geodeticmethod>spherical</geodeticmethod>
+        <atmosphere model="isa" />
+        <timestep>0.05</timestep>
+      </conditions>
+      <flightdata maxaltitude="928.78">
+        <warning>Implantação recuperação do dispositivo a alta velocidade (34.7 m/s)</warning>
+      </flightdata>
+    </simulation>
+
+    <simulation status="cantrun">
+      <name>Simulation 32</name>
+      <simulator>RK4Simulator</simulator>
+      <calculator>BarrowmanCalculator</calculator>
+      <conditions>
+        <configid>154fafaa-db20-4c77-9d34-5cb61ac9fffe</configid>
+        <launchrodlength>4.5</launchrodlength>
+        <launchrodangle>5.0</launchrodangle>
+        <launchroddirection>90.0</launchroddirection>
+        <windaverage>10.0</windaverage>
+        <windturbulence>0.1</windturbulence>
+        <launchaltitude>0.0</launchaltitude>
+        <launchlatitude>28.61</launchlatitude>
+        <launchlongitude>-80.6</launchlongitude>
+        <geodeticmethod>spherical</geodeticmethod>
+        <atmosphere model="isa" />
+        <timestep>0.05</timestep>
+      </conditions>
+      <flightdata maxaltitude="931.06">
+        <warning>Implantação recuperação do dispositivo a alta velocidade (34.8 m/s)</warning>
+      </flightdata>
+    </simulation>
+
+    <simulation status="cantrun">
+      <name>Simulation 33</name>
+      <simulator>RK4Simulator</simulator>
+      <calculator>BarrowmanCalculator</calculator>
+      <conditions>
+        <configid>154fafaa-db20-4c77-9d34-5cb61ac9fffe</configid>
+        <launchrodlength>4.5</launchrodlength>
+        <launchrodangle>5.0</launchrodangle>
+        <launchroddirection>90.0</launchroddirection>
+        <windaverage>10.0</windaverage>
+        <windturbulence>0.1</windturbulence>
+        <launchaltitude>0.0</launchaltitude>
+        <launchlatitude>28.61</launchlatitude>
+        <launchlongitude>-80.6</launchlongitude>
+        <geodeticmethod>spherical</geodeticmethod>
+        <atmosphere model="isa" />
+        <timestep>0.05</timestep>
+      </conditions>
+      <flightdata maxaltitude="952.16">
+        <warning>Implantação recuperação do dispositivo a alta velocidade (34.8 m/s)</warning>
+      </flightdata>
+    </simulation>
+
+    <simulation status="cantrun">
+      <name>Simulation 34</name>
+      <simulator>RK4Simulator</simulator>
+      <calculator>BarrowmanCalculator</calculator>
+      <conditions>
+        <configid>154fafaa-db20-4c77-9d34-5cb61ac9fffe</configid>
+        <launchrodlength>6.0</launchrodlength>
+        <launchrodangle>5.0</launchrodangle>
+        <launchroddirection>90.0</launchroddirection>
+        <windaverage>10.0</windaverage>
+        <windturbulence>0.1</windturbulence>
+        <launchaltitude>0.0</launchaltitude>
+        <launchlatitude>28.61</launchlatitude>
+        <launchlongitude>-80.6</launchlongitude>
+        <geodeticmethod>spherical</geodeticmethod>
+        <atmosphere model="isa" />
+        <timestep>0.05</timestep>
+      </conditions>
+      <flightdata maxaltitude="966.64">
+        <warning>Implantação recuperação do dispositivo a alta velocidade (34.3 m/s)</warning>
+      </flightdata>
+    </simulation>
+  </simulations>
+</openrocket>
