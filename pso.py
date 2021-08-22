@@ -9,7 +9,7 @@ import random
 import math
 import os
 import shutil
-from plot import plot_all, delete_images
+from plot import plot_all, delete_images, make_gif
 import orhelper
 from orhelper import FlightDataType, FlightEvent
 import xml.etree.ElementTree as ET
@@ -23,7 +23,6 @@ def set_fin(x, y):
     point2 = points[1]
     point2.attrib['x'] = str(x)
     point2.attrib['y'] = str(y)
-
     tree.write("final.ork", encoding='UTF-8', xml_declaration=True)
 
 
@@ -57,8 +56,8 @@ class Particle:
         wt_max = 0.9  # constant inertia weight
         c1_i = 0.8  # absolute cognitive weight
         c1_f = 0.2  # absolute cognitive weight
-        c2_i = 0.1  # absolute social weight
-        c2_f = 5  # absolute social weight
+        c2_i = 0.2  # absolute social weight
+        c2_f = 6  # absolute social weight
 
         wt_var = wt_min + (wt_max - wt_min) * (t_max - t) / t_max  # constant inertia weight
         c1_var = (c1_f - c1_i) * t / t_max + c1_i  # varying cognitive constant
@@ -192,7 +191,8 @@ with orhelper.OpenRocketInstance() as instance:
     random.seed(17201571)
     domains = [(0, 0.04), (0, 0.09)]  # input bounds [(x1_min,x1_max),(x2_min,x2_max)...]
     print("melhor global até então | melhor global da iteração | média do fitness da iteração | desvio-padrão")
-    PSO(run_simulation, domains, num_particles=20, max_iter=100)
+    PSO(run_simulation, domains, num_particles=20, max_iter=55)
+    make_gif()
 
 #   TODO: observar a otimização das aletas
 #   TODO: gerar um video
