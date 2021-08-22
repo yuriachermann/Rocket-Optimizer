@@ -15,15 +15,18 @@ from orhelper import FlightDataType, FlightEvent
 import xml.etree.ElementTree as ET
 
 
-def set_fin(x, y):
-    tree = ET.parse('final.ork')
+def set_fin(x2, y2, x3, y3):
+    tree = ET.parse('teste.ork')
     root = tree.getroot()
     fin = root.find('.//finpoints')
     points = fin.findall('.//point')
     point2 = points[1]
-    point2.attrib['x'] = str(x)
-    point2.attrib['y'] = str(y)
-    tree.write("final.ork", encoding='UTF-8', xml_declaration=True)
+    point2.attrib['x'] = str(x2)
+    point2.attrib['y'] = str(y2)
+    point3 = points[2]
+    point3.attrib['x'] = str(x3)
+    point3.attrib['y'] = str(y3)
+    tree.write("teste.ork", encoding='UTF-8', xml_declaration=True)
 
 
 # --- MAIN
@@ -105,6 +108,7 @@ class PSO:
     def __init__(self, cost_func, bounds, num_particles, max_iter):
         fit_best_g = -1  # best fitness for group
         pos_best_g = []  # best position for group
+        dimensions = len(bounds)
 
         # establish the swarm
         swarm = []
@@ -118,19 +122,18 @@ class PSO:
         stdv = 1
         while n < max_iter and stdv > 0.01:
 
-            x = []
-            y = []
-            pos_n = []
             fit_all = []
             fit_best_n = 0
+
+            var = np.zeros((dimensions+1, num_particles))
 
             # cycle through particles in swarm and evaluate fitness
             for i in range(0, num_particles):
                 swarm[i].evaluate(cost_func)
                 fit_all.append(swarm[i].fit_i)
-                x.append(swarm[i].position_i[0])
-                y.append(swarm[i].position_i[1])
-                pos_n.append([swarm[i].position_i[0], swarm[i].position_i[1], swarm[i].fit_i])
+                for dim in range(0, dimensions):
+                    var[dim, i] = swarm[i].position_i[dim]
+                var[dimensions, i] = swarm[i].fit_i
 
                 # determine if current particle is the best (globally)
                 if swarm[i].fit_i > fit_best_g or fit_best_g == -1:
@@ -146,16 +149,19 @@ class PSO:
                 swarm[i].update_velocity(pos_best_g, bounds, n, max_iter, i)
                 swarm[i].update_position(bounds)
 
-            mean_pos = [mean(x), mean(y)]
-            stdev_pos = [stdev(x), stdev(y)]
-            stdv = stdev_pos[0] + stdev_pos[1]
+            # mean_pos = [mean(var[dim]) for dim in range(0, dimensions)]
+            stdev_pos = [stdev(var[dim]) for dim in range(0, dimensions)]
+            stdv = sum(stdev_pos)
 
-            pos_n = np.transpose(pos_n)
+            # var_plot = [var[0], var[1], var[dimensions]]
+            # plot_all(var_plot, n)
 
-            plot_all(pos_n, n)
-
-            print(n, " avg: ", round(mean(fit_all), 2), " std: ", round(stdev(fit_all), 2), " best_g: ",
-                  round(fit_best_g, 2), " best_i: ", round(fit_best_n, 2), '-' if fit_best_n != fit_best_g else '')
+            print(" \t\tn:", n,
+                  " \t\tavg:", round(mean(fit_all), 1),
+                  " \t\tstd:", round(stdev(fit_all), 1),
+                  " \t\tbest_g:", round(fit_best_g, 1),
+                  " \t\tbest_i:", round(fit_best_n, 1),
+                  " \t\t-" if fit_best_n + 0.1 < fit_best_g else "")
 
             n += 1
 
@@ -171,29 +177,24 @@ with orhelper.OpenRocketInstance() as instance:
 
     # --- COST FUNCTION
     # function we are attempting to optimize (minimize)
-    def run_simulation(fin=None):
-        if fin is None:
-            fin = [0.04, 0.09]
-        set_fin(fin[0], fin[1])
-        doc = orh.load_doc(os.path.join('final.ork'))
+    def run_simulation(fin):
+        set_fin(fin[0], fin[1], fin[2], fin[3])
+        doc = orh.load_doc(os.path.join('teste.ork'))
         sim = doc.getSimulation(0)
         orh.run_simulation(sim)
         dt = orh.get_timeseries(sim,
-                                [FlightDataType.TYPE_TIME, FlightDataType.TYPE_ALTITUDE,
+                                [FlightDataType.TYPE_TIME,
+                                 FlightDataType.TYPE_ALTITUDE,
                                  FlightDataType.TYPE_VELOCITY_Z])
         events = orh.get_events(sim)
-        apogee = np. \
-            interp(events.get(FlightEvent.APOGEE), dt[FlightDataType.TYPE_TIME], dt[FlightDataType.TYPE_ALTITUDE])
+        apg = np.interp(events.get(FlightEvent.APOGEE), dt[FlightDataType.TYPE_TIME], dt[FlightDataType.TYPE_ALTITUDE])
 
-        return apogee[0]
+        return apg[0]
 
 
     random.seed(17201571)
-    domains = [(0, 0.06), (0, 0.1)]  # input bounds [(x1_min,x1_max),(x2_min,x2_max)...]
-    print("melhor global até então | melhor global da iteração | média do fitness da iteração | desvio-padrão")
-    PSO(run_simulation, domains, num_particles=20, max_iter=55)
+    domains = [(0, 0.06), (0, 0.1), (0.06, 0.12), (0, 0.1)]  # input bounds [(x1_min,x1_max),(x2_min,x2_max)...]
+    PSO(run_simulation, domains, num_particles=20, max_iter=50)
     make_gif()
 
-#   TODO: observar a otimização das aletas
-#   TODO: gerar um video
-#   TODO: inverter velocidade quando atingir fim do domínio
+#   TODO: inverter velocidade quando atingir fim do domínio?
