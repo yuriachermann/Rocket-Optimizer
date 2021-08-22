@@ -32,8 +32,8 @@ class Particle:
         self.position_i = []  # particle position
         self.velocity_i = []  # particle velocity
         self.pos_best_i = []  # best position individual
-        self.err_best_i = -1  # best error individual
-        self.err_i = -1  # error individual
+        self.fit_best_i = -1  # best fitness individual
+        self.fit_i = -1  # fitness individual
 
         vel = 0.1
 
@@ -43,12 +43,12 @@ class Particle:
 
     # evaluate current fitness
     def evaluate(self, cost_func):
-        self.err_i = cost_func(self.position_i)
+        self.fit_i = cost_func(self.position_i)
 
         # check to see if the current position is an individual best
-        if self.err_i < self.err_best_i or self.err_best_i == -1:
+        if self.fit_i < self.fit_best_i or self.fit_best_i == -1:
             self.pos_best_i = self.position_i
-            self.err_best_i = self.err_i
+            self.fit_best_i = self.fit_i
 
     # update new particle velocity
     def update_velocity(self, pos_best_g, bounds, t, t_max, ii):
@@ -63,7 +63,7 @@ class Particle:
         c1_var = (c1_f - c1_i) * t / t_max + c1_i  # varying cognitive constant
         c2_var = (c2_f - c2_i) * t / t_max + c2_i  # varying social constant
 
-        vel_max = 1
+        # vel_max = 1
 
         print((round(c1_var, 1), round(c2_var, 1)) if ii == 1 else '', end='')
 
@@ -103,7 +103,7 @@ class Particle:
 
 class PSO:
     def __init__(self, cost_func, bounds, num_particles, max_iter):
-        fit_best_g = -1  # best error for group
+        fit_best_g = -1  # best fitness for group
         pos_best_g = []  # best position for group
 
         # establish the swarm
@@ -127,19 +127,19 @@ class PSO:
             # cycle through particles in swarm and evaluate fitness
             for i in range(0, num_particles):
                 swarm[i].evaluate(cost_func)
-                fit_all.append(swarm[i].err_i)
+                fit_all.append(swarm[i].fit_i)
                 x.append(swarm[i].position_i[0])
                 y.append(swarm[i].position_i[1])
-                pos_n.append([swarm[i].position_i[0], swarm[i].position_i[1], swarm[i].err_i])
+                pos_n.append([swarm[i].position_i[0], swarm[i].position_i[1], swarm[i].fit_i])
 
                 # determine if current particle is the best (globally)
-                if swarm[i].err_i < fit_best_g or fit_best_g == -1:
+                if swarm[i].fit_i > fit_best_g or fit_best_g == -1:
                     pos_best_g = list(swarm[i].position_i)
-                    fit_best_g = float(swarm[i].err_i)
+                    fit_best_g = float(swarm[i].fit_i)
 
                 # determine the best of iteration
-                if swarm[i].err_i < fit_best_n:
-                    fit_best_n = swarm[i].err_i
+                if swarm[i].fit_i > fit_best_n:
+                    fit_best_n = swarm[i].fit_i
 
             # cycle through swarm and update velocities and position
             for i in range(0, num_particles):
@@ -189,7 +189,7 @@ with orhelper.OpenRocketInstance() as instance:
 
 
     random.seed(17201571)
-    domains = [(0, 0.04), (0, 0.09)]  # input bounds [(x1_min,x1_max),(x2_min,x2_max)...]
+    domains = [(0, 0.06), (0, 0.1)]  # input bounds [(x1_min,x1_max),(x2_min,x2_max)...]
     print("melhor global até então | melhor global da iteração | média do fitness da iteração | desvio-padrão")
     PSO(run_simulation, domains, num_particles=20, max_iter=55)
     make_gif()
