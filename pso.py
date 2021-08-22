@@ -153,8 +153,8 @@ class PSO:
             stdev_pos = [stdev(var[dim]) for dim in range(0, dimensions)]
             stdv = sum(stdev_pos)
 
-            # var_plot = [var[0], var[1], var[dimensions]]
-            # plot_all(var_plot, n)
+            var_plot = [var[0], var[1], var[dimensions]]
+            plot_all(var_plot, n)
 
             print(" \t\tn:", n,
                   " \t\tavg:", round(mean(fit_all), 1),
@@ -165,36 +165,36 @@ class PSO:
 
             n += 1
 
+        make_gif(n-1)
         # print final results
         print('FINAL:')
         print("best position:", [round(num, 2) for num in pos_best_g])
         print("Best fitness:", round(fit_best_g, 2))
+        set_fin(pos_best_g[0], pos_best_g[1], pos_best_g[2], pos_best_g[3])
 
 
 # --- EXECUTE
-with orhelper.OpenRocketInstance() as instance:
-    orh = orhelper.Helper(instance)
+if __name__ == "__main__":
+    with orhelper.OpenRocketInstance() as instance:
+        orh = orhelper.Helper(instance)
 
-    # --- COST FUNCTION
-    # function we are attempting to optimize (minimize)
-    def run_simulation(fin):
-        set_fin(fin[0], fin[1], fin[2], fin[3])
-        doc = orh.load_doc(os.path.join('teste.ork'))
-        sim = doc.getSimulation(0)
-        orh.run_simulation(sim)
-        dt = orh.get_timeseries(sim,
-                                [FlightDataType.TYPE_TIME,
-                                 FlightDataType.TYPE_ALTITUDE,
-                                 FlightDataType.TYPE_VELOCITY_Z])
-        events = orh.get_events(sim)
-        apg = np.interp(events.get(FlightEvent.APOGEE), dt[FlightDataType.TYPE_TIME], dt[FlightDataType.TYPE_ALTITUDE])
+        # --- FITNESS FUNCTION
+        def run_simulation(fin):
+            set_fin(fin[0], fin[1], fin[2], fin[3])
+            doc = orh.load_doc(os.path.join('teste.ork'))
+            sim = doc.getSimulation(0)
+            orh.run_simulation(sim)
+            dt = orh.get_timeseries(sim,
+                                    [FlightDataType.TYPE_TIME,
+                                     FlightDataType.TYPE_ALTITUDE,
+                                     FlightDataType.TYPE_VELOCITY_Z])
+            events = orh.get_events(sim)
+            apg = np.interp(events.get(FlightEvent.APOGEE),
+                            dt[FlightDataType.TYPE_TIME],
+                            dt[FlightDataType.TYPE_ALTITUDE])
+            return apg[0]
 
-        return apg[0]
 
-
-    random.seed(17201571)
-    domains = [(0, 0.06), (0, 0.1), (0.06, 0.12), (0, 0.1)]  # input bounds [(x1_min,x1_max),(x2_min,x2_max)...]
-    PSO(run_simulation, domains, num_particles=20, max_iter=50)
-    make_gif()
-
-#   TODO: inverter velocidade quando atingir fim do domínio?
+        random.seed(17201571)
+        domains = [(0, 0.06), (0, 0.1), (0.06, 0.12), (0, 0.1)]  # input bounds [(x1_min,x1_max), ...]
+        PSO(run_simulation, domains, num_particles=20, max_iter=50)
