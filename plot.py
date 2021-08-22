@@ -3,12 +3,7 @@ import sys
 import os
 import matplotlib as m
 import matplotlib.pyplot as plt
-
-
-def eggholder2(a, b):
-    term1 = -(b+47) * np.sin(np.sqrt(abs(b+a/2+47)))
-    term2 = -a * np.sin(np.sqrt(abs(a-(b+47))))
-    return term1 + term2
+from PIL import Image
 
 
 def delete_images():
@@ -42,3 +37,14 @@ def plot_all(pos_n, n):
     return
 
 
+def make_gif():
+    frames = []
+    i = 0
+    for filename in os.listdir('images'):
+        # file_path = os.path.join(folder, filename)
+        frames.append(Image.open("images/iteration_%s.png" % i))
+        i = i + 1
+
+    frame_one = frames[0]
+    frame_one.save("pso.gif", format="GIF", append_images=frames,
+                   save_all=True, duration=100, loop=0)
