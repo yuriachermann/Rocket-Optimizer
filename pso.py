@@ -1,35 +1,16 @@
-from __future__ import division
-from statistics import mean, stdev
-import matplotlib.pyplot as plt
-from matplotlib import cbook
-from matplotlib import cm
-from matplotlib.colors import LightSource
-import numpy as np
-import random
-import math
 import os
-import shutil
-from plot import plot_all, delete_images, make_gif
+import random
+import fs.copy
 import orhelper
+import numpy as np
+# from accelerate import profiler
+import xml.etree.ElementTree as Et
+from statistics import mean, stdev
 from orhelper import FlightDataType, FlightEvent
-import xml.etree.ElementTree as ET
+from plot import plot_all, delete_images, make_gif
 
 
-def set_fin(x2, y2, x3, y3):
-    tree = ET.parse('teste.ork')
-    root = tree.getroot()
-    fin = root.find('.//finpoints')
-    points = fin.findall('.//point')
-    point2 = points[1]
-    point2.attrib['x'] = str(x2)
-    point2.attrib['y'] = str(y2)
-    point3 = points[2]
-    point3.attrib['x'] = str(x3)
-    point3.attrib['y'] = str(y3)
-    tree.write("teste.ork", encoding='UTF-8', xml_declaration=True)
-
-
-# --- MAIN
+# --- PARTICLES
 class Particle:
     def __init__(self, bounds):
         self.position_i = []  # particle position
@@ -45,8 +26,8 @@ class Particle:
             self.position_i.append(random.random() * (bounds[i][1]-bounds[i][0]) + bounds[i][0])
 
     # evaluate current fitness
-    def evaluate(self, cost_func):
-        self.fit_i = cost_func(self.position_i)
+    def evaluate(self, fit_func):
+        self.fit_i = fit_func(self.position_i)
 
         # check to see if the current position is an individual best
         if self.fit_i < self.fit_best_i or self.fit_best_i == -1:
@@ -104,8 +85,9 @@ class Particle:
                 # self.velocity_i[i] = -self.velocity_i[i]
 
 
+# --- PSO
 class PSO:
-    def __init__(self, cost_func, bounds, num_particles, max_iter):
+    def __init__(self, fit_func, bounds, num_particles, max_iter):
         fit_best_g = -1  # best fitness for group
         pos_best_g = []  # best position for group
         dimensions = len(bounds)
@@ -129,7 +111,7 @@ class PSO:
 
             # cycle through particles in swarm and evaluate fitness
             for i in range(0, num_particles):
-                swarm[i].evaluate(cost_func)
+                swarm[i].evaluate(fit_func)
                 fit_all.append(swarm[i].fit_i)
                 for dim in range(0, dimensions):
                     var[dim, i] = swarm[i].position_i[dim]
@@ -178,23 +160,44 @@ if __name__ == "__main__":
     with orhelper.OpenRocketInstance() as instance:
         orh = orhelper.Helper(instance)
 
-        # --- FITNESS FUNCTION
-        def run_simulation(fin):
-            set_fin(fin[0], fin[1], fin[2], fin[3])
-            doc = orh.load_doc(os.path.join('teste.ork'))
-            sim = doc.getSimulation(0)
-            orh.run_simulation(sim)
-            dt = orh.get_timeseries(sim,
-                                    [FlightDataType.TYPE_TIME,
-                                     FlightDataType.TYPE_ALTITUDE,
-                                     FlightDataType.TYPE_VELOCITY_Z])
-            events = orh.get_events(sim)
-            apg = np.interp(events.get(FlightEvent.APOGEE),
-                            dt[FlightDataType.TYPE_TIME],
-                            dt[FlightDataType.TYPE_ALTITUDE])
-            return apg[0]
+        mem_fs = fs.open_fs('mem://')
+        os_fs = fs.open_fs(".")
+        fs.copy.copy_file(os_fs, 'teste.ork', mem_fs, 'mem_teste.ork')
+        with mem_fs.open('mem_teste.ork') as mem_file:
+
+            def set_fin(x2, y2, x3, y3):
+                tree = Et.parse(mem_file)
+                root = tree.getroot()
+                fin = root.find('.//finpoints')
+                points = fin.findall('.//point')
+                point2 = points[1]
+                point2.attrib['x'] = str(x2)
+                point2.attrib['y'] = str(y2)
+                point3 = points[2]
+                point3.attrib['x'] = str(x3)
+                point3.attrib['y'] = str(y3)
+                tree.write('mem_teste.ork', encoding='UTF-8', xml_declaration=True)
+
+            # --- FITNESS FUNCTION
+            def run_simulation(fin):
+                set_fin(fin[0], fin[1], fin[2], fin[3])
+                doc = orh.load_doc('mem_teste.ork')
+                sim = doc.getSimulation(0)
+                orh.run_simulation(sim)
+                dt = orh.get_timeseries(sim,
+                                        [FlightDataType.TYPE_TIME,
+                                         FlightDataType.TYPE_ALTITUDE,
+                                         FlightDataType.TYPE_VELOCITY_Z])
+                events = orh.get_events(sim)
+                apg = np.interp(events.get(FlightEvent.APOGEE),
+                                dt[FlightDataType.TYPE_TIME],
+                                dt[FlightDataType.TYPE_ALTITUDE])
+                return apg[0]
 
 
-        random.seed(17201571)
-        domains = [(0, 0.06), (0, 0.1), (0.06, 0.12), (0, 0.1)]  # input bounds [(x1_min,x1_max), ...]
-        PSO(run_simulation, domains, num_particles=20, max_iter=50)
+            random.seed(17201571)
+            domains = [(0, 0.06), (0, 0.1), (0.06, 0.12), (0, 0.1)]  # input bounds [(x1_min,x1_max), ...]
+            PSO(run_simulation, domains, num_particles=20, max_iter=50)
+
+        fs.copy.copy_fs(mem_fs, fs.open_fs("."))
+        mem_fs.close()
