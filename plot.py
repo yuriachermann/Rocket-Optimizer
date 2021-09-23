@@ -1,8 +1,6 @@
 import os
-import sys
-import numpy as np
+import shutil
 from PIL import Image
-import matplotlib as m
 import matplotlib.pyplot as plt
 
 
