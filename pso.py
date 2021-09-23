@@ -1,6 +1,7 @@
 import os
 import random
-import fs.copy
+import shutil
+import tempfile
 import orhelper
 import numpy as np
 # from accelerate import profiler
@@ -155,18 +156,31 @@ class PSO:
         set_fin(pos_best_g[0], pos_best_g[1], pos_best_g[2], pos_best_g[3])
 
 
+class TEMP(object):
+
+    def __init__(self, original_path):
+        self.original_path = original_path
+
+    def __enter__(self):
+        temp_dir = tempfile.gettempdir()
+        base_path = os.path.basename(self.original_path)
+        self.path = os.path.join(temp_dir, base_path)
+        shutil.copy2(self.original_path, self.path)
+        return self.path
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        os.remove(self.path)
+
+
 # --- EXECUTE
 if __name__ == "__main__":
     with orhelper.OpenRocketInstance() as instance:
         orh = orhelper.Helper(instance)
 
-        mem_fs = fs.open_fs('mem://')
-        os_fs = fs.open_fs(".")
-        fs.copy.copy_file(os_fs, 'teste.ork', mem_fs, 'mem_teste.ork')
-        with mem_fs.open('mem_teste.ork') as mem_file:
+        with TEMP("teste.ork") as temp_path:
 
             def set_fin(x2, y2, x3, y3):
-                tree = Et.parse(mem_file)
+                tree = Et.parse(temp_path)
                 root = tree.getroot()
                 fin = root.find('.//finpoints')
                 points = fin.findall('.//point')
@@ -176,12 +190,12 @@ if __name__ == "__main__":
                 point3 = points[2]
                 point3.attrib['x'] = str(x3)
                 point3.attrib['y'] = str(y3)
-                tree.write('mem_teste.ork', encoding='UTF-8', xml_declaration=True)
+                tree.write(temp_path, encoding='UTF-8', xml_declaration=True)
 
             # --- FITNESS FUNCTION
             def run_simulation(fin):
                 set_fin(fin[0], fin[1], fin[2], fin[3])
-                doc = orh.load_doc('mem_teste.ork')
+                doc = orh.load_doc(temp_path)
                 sim = doc.getSimulation(0)
                 orh.run_simulation(sim)
                 dt = orh.get_timeseries(sim,
@@ -197,7 +211,6 @@ if __name__ == "__main__":
 
             random.seed(17201571)
             domains = [(0, 0.06), (0, 0.1), (0.06, 0.12), (0, 0.1)]  # input bounds [(x1_min,x1_max), ...]
-            PSO(run_simulation, domains, num_particles=20, max_iter=50)
+            PSO(run_simulation, domains, num_particles=50, max_iter=100)
 
-        fs.copy.copy_fs(mem_fs, fs.open_fs("."))
-        mem_fs.close()
+            shutil.copy2(temp_path, "teste.ork")
