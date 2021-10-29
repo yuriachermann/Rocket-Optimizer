@@ -1,14 +1,15 @@
 import os
+import gc
 import random
 import shutil
 import tempfile
 import orhelper
 import numpy as np
-# from accelerate import profiler
+# from memory_profiler import profile
 import xml.etree.ElementTree as Et
 from statistics import mean, stdev
 from orhelper import FlightDataType, FlightEvent
-from plot import plot_all, delete_images, make_gif
+# from plot import plot_all, delete_images, make_gif, create_folder
 
 
 # --- PARTICLES
@@ -98,34 +99,34 @@ class PSO:
         for i in range(0, num_particles):
             swarm.append(Particle(bounds))
 
-        delete_images()
+        # create_folder()
+        # delete_images()
 
         # begin optimization loop
         n = 0
         stdv = 1
-        while n < max_iter and stdv > 0.01:
+        while n <= max_iter and stdv > 0.01:
 
             fit_all = []
             fit_best_n = 0
 
-            var = np.zeros((dimensions+1, num_particles))
+            # var = np.zeros((dimensions+1, num_particles))
 
             # cycle through particles in swarm and evaluate fitness
             for i in range(0, num_particles):
                 swarm[i].evaluate(fit_func)
                 fit_all.append(swarm[i].fit_i)
-                for dim in range(0, dimensions):
-                    var[dim, i] = swarm[i].position_i[dim]
-                var[dimensions, i] = swarm[i].fit_i
-
-                # determine if current particle is the best (globally)
-                if swarm[i].fit_i > fit_best_g or fit_best_g == -1:
-                    pos_best_g = list(swarm[i].position_i)
-                    fit_best_g = float(swarm[i].fit_i)
+                # for dim in range(0, dimensions):
+                #     var[dim, i] = swarm[i].position_i[dim]
+                # var[dimensions, i] = swarm[i].fit_i
 
                 # determine the best of iteration
                 if swarm[i].fit_i > fit_best_n:
                     fit_best_n = swarm[i].fit_i
+                    # determine if current particle is the best (globally)
+                    if fit_best_n > fit_best_g or fit_best_g == -1:
+                        pos_best_g = list(swarm[i].position_i)
+                        fit_best_g = float(swarm[i].fit_i)
 
             # cycle through swarm and update velocities and position
             for i in range(0, num_particles):
@@ -133,11 +134,11 @@ class PSO:
                 swarm[i].update_position(bounds)
 
             # mean_pos = [mean(var[dim]) for dim in range(0, dimensions)]
-            stdev_pos = [stdev(var[dim]) for dim in range(0, dimensions)]
-            stdv = sum(stdev_pos)
+            # stdev_pos = [stdev(var[dim]) for dim in range(0, dimensions)]
+            # stdv = sum(stdev_pos)
 
-            var_plot = [var[0], var[1], var[dimensions]]
-            plot_all(var_plot, n)
+            # var_plot = [var[0], var[1], var[dimensions]]
+            # plot_all(var_plot, n)
 
             print(" \t\tn:", n,
                   " \t\tavg:", round(mean(fit_all), 1),
@@ -146,11 +147,13 @@ class PSO:
                   " \t\tbest_i:", round(fit_best_n, 1),
                   " \t\t-" if fit_best_n + 0.1 < fit_best_g else "")
 
+            del fit_all, fit_best_n  # , var, var_plot, stdev_pos
             n += 1
 
-        make_gif(n-1)
+        # make_gif(n-1)
+
         # print final results
-        print('FINAL:')
+        print('\n\nFINAL:')
         print("best position:", [round(num, 2) for num in pos_best_g])
         print("Best fitness:", round(fit_best_g, 2))
         set_fin(pos_best_g[0], pos_best_g[1], pos_best_g[2], pos_best_g[3])
@@ -174,43 +177,50 @@ class TEMP(object):
 
 # --- EXECUTE
 if __name__ == "__main__":
-    with orhelper.OpenRocketInstance() as instance:
+    with orhelper.OpenRocketInstance() as instance, TEMP("teste.ork") as temp_path:
         orh = orhelper.Helper(instance)
+        doc = orh.load_doc(temp_path)
 
-        with TEMP("teste.ork") as temp_path:
+        def set_fin(x2, y2, x3, y3):
+            tree = Et.parse(temp_path)
+            root = tree.getroot()
+            fin = root.find('.//finpoints')
+            points = fin.findall('.//point')
+            point2 = points[1]
+            point2.attrib['x'] = str(x2)
+            point2.attrib['y'] = str(y2)
+            point3 = points[2]
+            point3.attrib['x'] = str(x3)
+            point3.attrib['y'] = str(y3)
+            tree.write(temp_path, encoding='UTF-8', xml_declaration=True)
+            del tree, root, fin, points
 
-            def set_fin(x2, y2, x3, y3):
-                tree = Et.parse(temp_path)
-                root = tree.getroot()
-                fin = root.find('.//finpoints')
-                points = fin.findall('.//point')
-                point2 = points[1]
-                point2.attrib['x'] = str(x2)
-                point2.attrib['y'] = str(y2)
-                point3 = points[2]
-                point3.attrib['x'] = str(x3)
-                point3.attrib['y'] = str(y3)
-                tree.write(temp_path, encoding='UTF-8', xml_declaration=True)
-
-            # --- FITNESS FUNCTION
-            def run_simulation(fin):
-                set_fin(fin[0], fin[1], fin[2], fin[3])
-                doc = orh.load_doc(temp_path)
-                sim = doc.getSimulation(0)
-                orh.run_simulation(sim)
-                dt = orh.get_timeseries(sim,
-                                        [FlightDataType.TYPE_TIME,
-                                         FlightDataType.TYPE_ALTITUDE,
-                                         FlightDataType.TYPE_VELOCITY_Z])
-                events = orh.get_events(sim)
-                apg = np.interp(events.get(FlightEvent.APOGEE),
-                                dt[FlightDataType.TYPE_TIME],
-                                dt[FlightDataType.TYPE_ALTITUDE])
-                return apg[0]
+        # --- FITNESS FUNCTION
+        def run_sim(fin):
+            set_fin(fin[0], fin[1], fin[2], fin[3])
+            # doc = orh.load_doc(temp_path)
+            # del doc
+            # del doc, sim, dt, events, apg
+            gc.collect()
+            # return 1500
+            sim = doc.getSimulation(0)
+            orh.run_simulation(sim)
+            dt = orh.get_timeseries(sim, [FlightDataType.TYPE_TIME, FlightDataType.TYPE_ALTITUDE, FlightDataType.TYPE_VELOCITY_Z])
+            events = orh.get_events(sim)
+            apg = np.interp(events.get(FlightEvent.APOGEE),
+                            dt[FlightDataType.TYPE_TIME],
+                            dt[FlightDataType.TYPE_ALTITUDE])
+            apogee = apg[0]
+            return apogee
 
 
-            random.seed(17201571)
-            domains = [(0, 0.06), (0, 0.1), (0.06, 0.12), (0, 0.1)]  # input bounds [(x1_min,x1_max), ...]
-            PSO(run_simulation, domains, num_particles=50, max_iter=100)
+        random.seed(17201577)
+        domains = [(0, 0.06), (0, 0.1), (0.06, 0.12), (0, 0.1)]  # input bounds [(x1_min,x1_max), ...]
+        PSO(fit_func=run_sim, bounds=domains, num_particles=20, max_iter=5)
 
-            shutil.copy2(temp_path, "teste.ork")
+        shutil.copy2(temp_path, "teste.ork")
+
+# TODO: usar profiler
+# TODO: encontrar ponto que infla a memória
+# TODO: verificar queda abrupta do desvio-padrão
+# TODO: computação paralela
