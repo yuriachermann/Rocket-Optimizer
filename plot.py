@@ -4,6 +4,12 @@ from PIL import Image
 import matplotlib.pyplot as plt
 
 
+def create_folder():
+    if not os.path.exists('images'):
+        os.makedirs('images')
+    return
+
+
 def delete_images():
     folder = 'images'
     for filename in os.listdir(folder):
