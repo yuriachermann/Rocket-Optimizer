@@ -9,7 +9,7 @@ import random
 import math
 import os
 import shutil
-from plot import eggholder2, plot_all, delete_images
+from plot_model import eggholder2, plot_all, delete_images
 
 
 # --- COST FUNCTION

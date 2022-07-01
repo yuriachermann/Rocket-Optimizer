@@ -1,0 +1,10 @@
+.idea
+*.iml
+out
+gen
+
+### Folders
+data
+
+### Files
+test*.py

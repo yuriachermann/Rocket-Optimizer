@@ -3,6 +3,8 @@ import gc
 import random
 import shutil
 import tempfile
+
+import jpype
 import orhelper
 import numpy as np
 # from memory_profiler import profile
@@ -177,6 +179,7 @@ class TEMP(object):
 
 # --- EXECUTE
 if __name__ == "__main__":
+
     with orhelper.OpenRocketInstance() as instance, TEMP("teste.ork") as temp_path:
         orh = orhelper.Helper(instance)
         doc = orh.load_doc(temp_path)
@@ -198,11 +201,7 @@ if __name__ == "__main__":
         # --- FITNESS FUNCTION
         def run_sim(fin):
             set_fin(fin[0], fin[1], fin[2], fin[3])
-            # doc = orh.load_doc(temp_path)
-            # del doc
-            # del doc, sim, dt, events, apg
             gc.collect()
-            # return 1500
             sim = doc.getSimulation(0)
             orh.run_simulation(sim)
             dt = orh.get_timeseries(sim, [FlightDataType.TYPE_TIME, FlightDataType.TYPE_ALTITUDE, FlightDataType.TYPE_VELOCITY_Z])
@@ -220,7 +219,7 @@ if __name__ == "__main__":
 
         shutil.copy2(temp_path, "teste.ork")
 
-# TODO: usar profiler
-# TODO: encontrar ponto que infla a memória
-# TODO: verificar queda abrupta do desvio-padrão
-# TODO: computação paralela
+# TODO: use profiler
+# TODO: find where memory floods
+# TODO: verify standard deviation dropping quickly
+# TODO: use multi-threading

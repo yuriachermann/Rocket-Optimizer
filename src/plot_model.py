@@ -1,3 +1,5 @@
+import shutil
+
 import numpy as np
 import sys
 import os
@@ -12,7 +14,7 @@ def eggholder2(a, b):
 
 
 def delete_images():
-    folder = 'images_model'
+    folder = '../data/images_model'
     for filename in os.listdir(folder):
         file_path = os.path.join(folder, filename)
         try:
@@ -44,7 +46,7 @@ def plot_all(pos_n, n):
     ax.set_ylim3d(-512, 512)
     ax.set_zlim3d(-1000, 1500)
 
-    plt.savefig('images_model/iteration_%d' % n)
+    plt.savefig('../data/images_model/iteration_%d' % n)
     return
 
 

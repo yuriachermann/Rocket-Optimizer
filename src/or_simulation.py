@@ -5,10 +5,6 @@ import xml.etree.ElementTree as ET
 from orhelper import FlightDataType, FlightEvent
 
 
-def index_at(t):
-    (np.abs(data[FlightDataType.TYPE_TIME] - t)).argmin()
-
-
 def run_simulation(fin=0, length=0, diameter=0, nose=0):
     with orhelper.OpenRocketInstance() as instance:
         orh = orhelper.Helper(instance)

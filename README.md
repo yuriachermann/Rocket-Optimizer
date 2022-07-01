@@ -38,6 +38,9 @@ source ~/.bashrc
 
 
 # Installing orhelper
+
+Make sure to have https://pypi.python.org/simple as a repository channel on your environment
+
 * Install orhelper from pip
 ```
 pip install orhelper
