@@ -201,8 +201,8 @@
                 <filletmaterial type="bulk" density="680.0">Cardboard</filletmaterial>
                 <finpoints>
                   <point x="0" y="0.0" />
-                  <point x="0.057243797266088005" y="0.016611864035230805" />
-                  <point x="0.09639206070731775" y="0.05190227080457781" />
+                  <point x="0.035786121752625896" y="0.05662456477415796" />
+                  <point x="0.10114069978391428" y="0.006716163218778825" />
                   <point x="0.12" y="0.0" />
                 </finpoints>
               </freeformfinset>

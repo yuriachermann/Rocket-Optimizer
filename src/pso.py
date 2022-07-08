@@ -4,13 +4,15 @@ import random
 import shutil
 import tempfile
 
-import jpype
 import orhelper
 import numpy as np
-# from memory_profiler import profile
 import xml.etree.ElementTree as Et
 from statistics import mean, stdev
 from orhelper import FlightDataType, FlightEvent
+from threading import Thread
+from queue import Queue
+# import jpype
+# from memory_profiler import profile
 # from plot import plot_all, delete_images, make_gif, create_folder
 
 
@@ -94,7 +96,7 @@ class PSO:
     def __init__(self, fit_func, bounds, num_particles, max_iter):
         fit_best_g = -1  # best fitness for group
         pos_best_g = []  # best position for group
-        dimensions = len(bounds)
+        # dimensions = len(bounds)
 
         # establish the swarm
         swarm = []
@@ -176,11 +178,28 @@ class TEMP(object):
     def __exit__(self, exc_type, exc_val, exc_tb):
         os.remove(self.path)
 
+#
+# class ThreadWrapper:
+#     def __init__(self, target, *args, **kwargs):
+#         self.result = None
+#         self.target = self._build_target_fn(target)
+#         self.thread = _Thread(
+#             target=self.target,
+#             *args,
+#             **kwargs
+#         )
+#
+#     def _build_thread_fn(self, func):
+#         def inner(*args, **kwargs):
+#             self.result = func(*args, **kwargs)
+#         return inner
+
 
 # --- EXECUTE
 if __name__ == "__main__":
 
-    with orhelper.OpenRocketInstance() as instance, TEMP("teste.ork") as temp_path:
+    with orhelper.OpenRocketInstance(jar_path="../data/OpenRocket-15.03.jar") as instance,\
+            TEMP("teste.ork") as temp_path:
         orh = orhelper.Helper(instance)
         doc = orh.load_doc(temp_path)
 
@@ -200,11 +219,14 @@ if __name__ == "__main__":
 
         # --- FITNESS FUNCTION
         def run_sim(fin):
+
             set_fin(fin[0], fin[1], fin[2], fin[3])
             gc.collect()
             sim = doc.getSimulation(0)
             orh.run_simulation(sim)
-            dt = orh.get_timeseries(sim, [FlightDataType.TYPE_TIME, FlightDataType.TYPE_ALTITUDE, FlightDataType.TYPE_VELOCITY_Z])
+            dt = orh.get_timeseries(sim, [FlightDataType.TYPE_TIME,
+                                          FlightDataType.TYPE_ALTITUDE,
+                                          FlightDataType.TYPE_VELOCITY_Z])
             events = orh.get_events(sim)
             apg = np.interp(events.get(FlightEvent.APOGEE),
                             dt[FlightDataType.TYPE_TIME],
@@ -212,10 +234,27 @@ if __name__ == "__main__":
             apogee = apg[0]
             return apogee
 
+        def kill(self):
+            self.is_alive = False
+
+        def run_sim_thread(fin):
+            que = Queue()
+
+            t = Thread(target=lambda q, arg1: q.put(run_sim(arg1)), args=(que, fin))
+            t.start()
+            t.join()
+
+            apogee = que.get()
+
+            t.is_alive()
+            kill(t)
+
+
+            return apogee
 
         random.seed(17201577)
         domains = [(0, 0.06), (0, 0.1), (0.06, 0.12), (0, 0.1)]  # input bounds [(x1_min,x1_max), ...]
-        PSO(fit_func=run_sim, bounds=domains, num_particles=20, max_iter=5)
+        PSO(fit_func=run_sim_thread, bounds=domains, num_particles=20, max_iter=500)
 
         shutil.copy2(temp_path, "teste.ork")
 
