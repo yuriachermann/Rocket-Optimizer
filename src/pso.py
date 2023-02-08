@@ -199,7 +199,7 @@ class TEMP(object):
 if __name__ == "__main__":
 
     with orhelper.OpenRocketInstance(jar_path="../data/OpenRocket-15.03.jar") as instance,\
-            TEMP("teste.ork") as temp_path:
+            TEMP("../data/teste.ork") as temp_path:
         orh = orhelper.Helper(instance)
         doc = orh.load_doc(temp_path)
 
@@ -256,7 +256,7 @@ if __name__ == "__main__":
         domains = [(0, 0.06), (0, 0.1), (0.06, 0.12), (0, 0.1)]  # input bounds [(x1_min,x1_max), ...]
         PSO(fit_func=run_sim_thread, bounds=domains, num_particles=20, max_iter=500)
 
-        shutil.copy2(temp_path, "teste.ork")
+        shutil.copy2(temp_path, "../data/teste.ork")
 
 # TODO: use profiler
 # TODO: find where memory floods
