@@ -109,7 +109,7 @@ source ~/.bashrc
 * On the ```Permissions``` tab, enable the ```Allow executing file as program``` option
 
 
-# Installing orhelper
+#### Installing orhelper
 
 Make sure to have https://pypi.python.org/simple as a repository channel on your environment
 
@@ -123,7 +123,7 @@ pip install orhelper
 CLASSPATH=\some\path\to\OpenRocket-15.03.jar
 ```
 
-# Adding the motor to OpenRocket
+#### Adding the motor to OpenRocket
 * Open the [motor file link](https://raw.githubusercontent.com/yuriachermann/tcc-openrocket/main/Acrux.eng?token=AJPQFUF7QGM6Z4NF5BFP2TLBJSUTG) and save as "Acrux.eng"
 * Execute OpenRocket
 * Select the ```Edit``` tab and click on ```Preferences```
