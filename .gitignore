@@ -4,7 +4,7 @@ out
 gen
 
 ### Folders
-data
+/data/images_model/
 
 ### Files
 test*.py
